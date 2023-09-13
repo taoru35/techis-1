@@ -13,7 +13,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+
     }
 
     /**
@@ -23,6 +23,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Schema::defaultStringLength(191);
+
+
+        // 本番環境でHTTPSを強制
+        if ($this->app->environment('production')) {
+            URL::forceScheme('https');
+        }
+
+
     }
 }
