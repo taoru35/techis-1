@@ -43,6 +43,7 @@ class CustomerController extends Controller
 
         // ユーザーの保存
         $user = new User();
+        $user->name = $request->nickname;  // この行を更新
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->role = 'user';  // ここでroleを'user'に設定

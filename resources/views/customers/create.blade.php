@@ -23,6 +23,12 @@
 
         <!-- ユーザー情報の入力部分 -->
         <div class="form-group">
+            <label for="nickname">ニックネーム <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="nickname" name="nickname" required value="{{ old('nickname') }}">
+        </div>
+
+
+        <div class="form-group">
             <label for="email">メールアドレス <span class="text-danger">*</span></label>
             <input type="email" class="form-control" id="email" name="email" required value="{{ old('email') }}">
         </div>
