@@ -6,6 +6,7 @@ use App\Http\Controllers\SalonController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +41,9 @@ Route::middleware(['ensureRoleIsAdminOrStaff'])->group(function () {
     Route::get('users/create', [UserController::class, 'create'])->name('users.create');
     Route::post('users/store', [UserController::class, 'store'])->name('users.store');
 });
+
+
+
+// カスタマー関連ページ
+Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
+

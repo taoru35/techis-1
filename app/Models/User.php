@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role', // これを追加
+        'role',
     ];
 
     /**
@@ -42,4 +42,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * 顧客情報とのリレーションを定義
+     */
+    public function customer()
+    {
+        return $this->hasOne(Customer::class);
+    }
 }

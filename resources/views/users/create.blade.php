@@ -7,6 +7,17 @@
 @stop
 
 @section('content')
+    <!-- バリデーションエラーメッセージ表示部分 -->
+    @if ($errors->any())
+       <div class="alert alert-danger">
+           <ul>
+               @foreach ($errors->all() as $error)
+                   <li>{{ $error }}</li>
+               @endforeach
+           </ul>
+       </div>
+    @endif
+
     <form action="{{ route('users.store') }}" method="POST">
         @csrf
         <div class="form-group">
@@ -25,7 +36,6 @@
             <label for="password_confirmation">パスワードの確認 <span class="text-danger">*</span></label>
             <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" required minlength="8">
         </div>
-        <!-- ロール選択の部分を追加 -->
         <div class="form-group">
             <label for="role">ロール <span class="text-danger">*</span></label>
             <select class="form-control" id="role" name="role">
@@ -34,8 +44,45 @@
                 <option value="admin">管理者</option>
             </select>
         </div>
-        <!-- 追加終わり -->
+
+        <!-- 顧客情報の入力部分 -->
+        <div id="customerInfo" style="display: none;">
+            <div class="form-group">
+                <label for="full_name">フルネーム:</label>
+                <input type="text" class="form-control" id="full_name" name="full_name" value="{{ old('full_name') }}">
+            </div>
+            <div class="form-group">
+                <label for="address">住所:</label>
+                <input type="text" class="form-control" id="address" name="address" value="{{ old('address') }}">
+            </div>
+            <div class="form-group">
+                <label for="phone_number">電話番号:</label>
+                <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ old('phone_number') }}">
+            </div>
+        </div>
+        <!-- 顧客情報の入力部分終わり -->
 
         <button type="submit" class="btn btn-primary">登録</button>
     </form>
+@stop
+
+@section('js')
+<script>
+    function toggleCustomerInfo() {
+        const roleSelect = document.getElementById('role');
+        const customerInfo = document.getElementById('customerInfo');
+
+        if (roleSelect.value === 'user') {
+            customerInfo.style.display = 'block';
+        } else {
+            customerInfo.style.display = 'none';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        toggleCustomerInfo();
+
+        document.getElementById('role').addEventListener('change', toggleCustomerInfo);
+    });
+</script>
 @stop

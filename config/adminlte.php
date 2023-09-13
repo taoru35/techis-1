@@ -225,11 +225,6 @@ return [
     */
 
     'menu' => [
-        [
-            'text' => '商品一覧',
-            'url'  => 'items',
-            'icon' => 'fas fa-gamepad',
-        ],
 
 
         [
@@ -239,10 +234,30 @@ return [
         ],
 
         [
+            'text' => '顧客一覧',
+            'route' => 'customers.index',
+            'icon' => 'fas fa-address-book',
+        ],
+
+
+
+        [
+            'text' => '商品一覧',
+            'url'  => 'items',
+            'icon' => 'fas fa-gamepad',
+        ],
+
+
+
+
+        [
             'text' => '美容室 Salon',
             'url'  => 'salon', // 追加されたページへのリンク
             'icon' => 'fas fa-cut', // サロンや美容関連のアイコンとして例示しています。必要に応じて別のアイコンを選択してください。
         ],
+
+
+
 
 
 
