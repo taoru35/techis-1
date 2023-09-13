@@ -23,7 +23,9 @@
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
                             <div class="input-group-append">
-                                <a href="{{ url('customers/create') }}" class="btn btn-default">カスタマー追加</a>
+                               
+                                <a href="{{ route('customers.create') }}" class="btn btn-default">カスタマー追加</a>
+
                             </div>
                         </div>
                     </div>
