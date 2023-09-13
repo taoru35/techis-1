@@ -1,6 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\SalonController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ItemController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,16 +18,25 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// ユーザー、管理者、スタッフ全てがアクセス可能なページ
+Route::get('/salon', [SalonController::class, 'homepage'])->name('salon.homepage');
 
-Route::prefix('items')->group(function () {
-    Route::get('/', [App\Http\Controllers\ItemController::class, 'index']);
-    Route::get('/add', [App\Http\Controllers\ItemController::class, 'add']);
-    Route::post('/add', [App\Http\Controllers\ItemController::class, 'add']);
+// 管理者とスタッフのみがアクセス可能なページ
+Route::middleware(['ensureRoleIsAdminOrStaff'])->group(function () {
+    // ダッシュボードページ
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+
+    // 商品関連ページ
+    Route::prefix('items')->group(function () {
+        Route::get('/', [ItemController::class, 'index']);
+        Route::get('/add', [ItemController::class, 'add']);
+        Route::post('/add', [ItemController::class, 'store']); // こちらのメソッド名を確認して適切なものに変更してください
+    });
+
+    // ユーザー関連ページ
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::get('users/create', [UserController::class, 'create'])->name('users.create');
+    Route::post('users/store', [UserController::class, 'store'])->name('users.store');
 });

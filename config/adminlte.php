@@ -231,6 +231,21 @@ return [
             'icon' => 'fas fa-gamepad',
         ],
 
+
+        [
+            'text' => 'ユーザー一覧',
+            'url'  => 'users',
+            'icon' => 'fas fa-users', // ユーザーのアイコンとして例示しています。必要に応じて別のアイコンを選択してください。
+        ],
+
+        [
+            'text' => '美容室 Salon',
+            'url'  => 'salon', // 追加されたページへのリンク
+            'icon' => 'fas fa-cut', // サロンや美容関連のアイコンとして例示しています。必要に応じて別のアイコンを選択してください。
+        ],
+
+
+
         // AdminLTEデフォルト
         /*
         // Navbar items:
