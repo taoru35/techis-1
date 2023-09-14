@@ -16,6 +16,8 @@ class Item extends Model
         'name',
         'type',
         'detail',
+        'image',  // これを追加
+        'price',  // これも追加
     ];
 
     /**

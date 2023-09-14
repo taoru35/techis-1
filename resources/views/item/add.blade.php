@@ -20,7 +20,7 @@
             @endif
 
             <div class="card card-primary">
-                <form method="POST">
+                <form method="POST" enctype="multipart/form-data"> <!-- enctypeを追加してファイルアップロードを許可 -->
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
@@ -37,6 +37,18 @@
                             <label for="detail">詳細</label>
                             <input type="text" class="form-control" id="detail" name="detail" placeholder="詳細説明">
                         </div>
+
+                        <!-- 以下、新たに追加した部分 -->
+                        <div class="form-group">
+                            <label for="image">画像</label>
+                            <input type="file" class="form-control" id="image" name="image">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="price">価格</label>
+                            <input type="number" class="form-control" id="price" name="price" placeholder="価格">
+                        </div>
+
                     </div>
 
                     <div class="card-footer">

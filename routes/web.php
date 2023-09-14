@@ -7,6 +7,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,3 +50,7 @@ Route::get('/customers', [CustomerController::class, 'index'])->name('customers.
 Route::get('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
 
 Route::post('/customers/store', [CustomerController::class, 'store'])->name('customers.store');
+
+
+
+

@@ -28,6 +28,8 @@
                                 <th>名前</th>
                                 <th>種別</th>
                                 <th>詳細</th>
+                                <th>画像</th>  {{-- 画像の列を追加 --}}
+                                <th>価格</th>  {{-- 価格の列を追加 --}}
                             </tr>
                         </thead>
                         <tbody>
@@ -37,6 +39,11 @@
                                     <td>{{ $item->name }}</td>
                                     <td>{{ $item->type }}</td>
                                     <td>{{ $item->detail }}</td>
+                                    <td>
+                                        {{-- S3のURLを使用して画像を表示 --}}
+                                        <img src="{{ env('AWS_URL') . '/' . $item->image }}" alt="{{ $item->name }}" width="100">
+                                    </td>
+                                    <td>{{ $item->price }}</td>  {{-- 価格を表示 --}}
                                 </tr>
                             @endforeach
                         </tbody>
