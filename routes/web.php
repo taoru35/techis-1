@@ -33,7 +33,7 @@ Route::middleware(['ensureRoleIsAdminOrStaff'])->group(function () {
     Route::prefix('items')->group(function () {
         Route::get('/', [ItemController::class, 'index']);
         Route::get('/add', [ItemController::class, 'add']);
-        Route::post('/add', [ItemController::class, 'store']); // こちらのメソッド名を確認して適切なものに変更してください
+        Route::post('/add', [ItemController::class, 'add']);
     });
 
     // ユーザー関連ページ
