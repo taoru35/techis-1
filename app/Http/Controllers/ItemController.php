@@ -38,42 +38,39 @@ class ItemController extends Controller
  */
 public function add(Request $request)
 {
-    // POSTリクエストのとき
     if ($request->isMethod('post')) {
 
         // バリデーション
-        $this->validate($request, [
-            'name' => 'required|max:100',
-            'type' => 'required',
-            'detail' => 'required',
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'type' => 'required|string|max:255',
+            'detail' => 'required|string|max:500',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'price' => 'required|numeric',
+            'price' => 'required|numeric|min:0',
         ]);
-
-        $filename = null;  // デフォルトをnullにしておく
 
         // 画像の保存
         if ($request->hasFile('image')) {
-            $file = $request->file('image');
-            $filename = 'items/images/' . time() . '.' . $file->getClientOriginalExtension();
-            Storage::disk('s3')->put($filename, file_get_contents($file));
-
+            $filename = $this->storeImage($request->file('image'));
+            $data['image'] = $filename;  // S3のファイル名を保存
         }
 
         // 商品登録
-        Item::create([
-            'user_id' => Auth::user()->id,
-            'name' => $request->name,
-            'type' => $request->type,
-            'detail' => $request->detail,
-            'image' => $filename,  // S3のファイル名を保存
-            'price' => $request->price,
-        ]);
+        $data['user_id'] = Auth::user()->id;
+        Item::create($data);
 
         return redirect('/items');
     }
 
     return view('item.add');
 }
+
+private function storeImage($file)
+{
+    $filename = 'items/images/' . time() . '.' . $file->getClientOriginalExtension();
+    Storage::disk('s3')->put($filename, file_get_contents($file));
+    return $filename;
+}
+
 
 }
