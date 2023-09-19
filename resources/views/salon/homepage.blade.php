@@ -1,82 +1,27 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elegant Salon</title>
+    <title>Tech Salon(テック美容室)</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Noto Sans JP', sans-serif;
-        }
-
-        .navbar {
-            margin-bottom: 50px;
-        }
-
-        .main-image {
-            height: 600px;
-            background: url('{{ asset('path_to_main_image.jpg') }}') no-repeat center center;
-            background-size: cover;
-        }
-
-        .feature-box {
-            padding: 20px;
-            transition: background-color 0.3s;
-        }
-
-        .feature-box:hover {
-            background-color: #f8f9fa;
-        }
-
-        .testimonial {
-            padding: 20px;
-            border: 1px solid #e5e5e5;
-            border-radius: 10px;
-            position: relative;
-            margin-bottom: 40px;
-        }
-
-        .testimonial:before {
-            content: "“";
-            font-size: 50px;
-            position: absolute;
-            top: -15px;
-            left: 20px;
-            color: #999;
-        }
-
-        .testimonial:after {
-            content: "”";
-            font-size: 50px;
-            position: absolute;
-            bottom: -15px;
-            right: 20px;
-            color: #999;
-        }
-
-        footer {
-            background-color: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px 0;
-            position: relative;
-            bottom: 0;
-            width: 100%;
-        }
-
-    </style>
+    <!-- 新しく追加した外部CSSファイルへのリンク -->
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 </head>
+
 <body>
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Elegant Salon</a>
+    <a class="navbar-brand" href="{{ route('salon.homepage') }}">Tech Salon（テック美容室）</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="{{ route('salon.homepage') }}">Home</a>
+
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Services</a>
@@ -121,10 +66,12 @@
 
 
 
-<!-- Main Image -->
-<div class="main-image d-flex justify-content-center align-items-center text-white">
-    <h1>Welcome to Elegant Salon</h1>
-</div>
+    <!-- Main Image -->
+    <div class="main-image d-flex justify-content-center align-items-center text-white">
+        <div class="overlay"></div>
+        <h1>Welcome to Tech Salon</h1>
+    </div>
+
 
 <!-- Services Section -->
 <div class="container mt-5">
@@ -150,12 +97,26 @@
     <!-- Add more testimonials as needed -->
 </div>
 
-<!-- Footer -->
-<footer class="text-center">
-    &copy; 2023 Elegant Salon. All rights reserved.
+ <!-- Footer -->
+ <footer class="text-center">
+    &copy; 2023 Tech Salon. All rights reserved.
 </footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+    $(document).ready(function() {
+        setTimeout(function() {
+            $('.overlay').css('background-color', 'rgba(0, 0, 0, 0.4)');
+        }, 500); // 2秒後に実行
+    });
+</script>
 </body>
+
 </html>
+
+
+
+
+
+
