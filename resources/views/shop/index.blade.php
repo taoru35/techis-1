@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>オンラインショップ</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">  <!-- 必要に応じて追加 -->
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet"><!-- 必要に応じて追加 -->
+
 </head>
 
 <body>
@@ -44,11 +45,15 @@
                 <div class="col-md-3 mb-4">
                     <div class="card h-100">
                         <div class="position-relative">
-                            <img src="{{ env('AWS_URL') . '/' . $item->image }}" alt="{{ $item->name }}" class="w-100 img-fluid mx-auto d-block" style="max-width: 150px; max-height: 150px;">
+                            <div class="position-relative">
+                                <div style="width: 150px; height: 150px; background-image: url('{{ env('AWS_URL') . '/' . $item->image }}'); background-size: contain; background-repeat: no-repeat; background-position: center center; margin-left: auto; margin-right: auto;"></div>
+                            </div>
+
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title">{{ $item->name }}</h5>
-                            <p class="card-text">{{ Str::limit($item->detail, 100, '...') }}</p>
+                            <h5 class="card-text">{{ Str::limit($item->name , 50, '...') }}</h5>
+                            {{-- <p class="card-text">{{ Str::limit($item->name , 50, '...') }}</p> --}}
+                            <p class="card-text">{{ Str::limit($item->detail, 50, '...') }}</p>
                             <p class="card-text">¥{{ number_format($item->price) }}</p>
                         </div>
                         <div class="card-footer">
@@ -64,8 +69,19 @@
 
             <!-- ページネーションリンクの追加 -->
             <div class="mt-4 d-flex justify-content-center">
-                {{ $items->links() }}
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        <li class="page-item"><a class="page-link" href="{{ $items->previousPageUrl() }}">前へ</a></li>
+                        @for ($i = 1; $i <= $items->lastPage(); $i++)
+                            <li class="page-item @if ($i == $items->currentPage()) active @endif">
+                                <a class="page-link" href="{{ $items->url($i) }}">{{ $i }}</a>
+                            </li>
+                        @endfor
+                        <li class="page-item"><a class="page-link" href="{{ $items->nextPageUrl() }}">次へ</a></li>
+                    </ul>
+                </nav>
             </div>
+
         </div>
     </div>
 </div>

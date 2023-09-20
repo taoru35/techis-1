@@ -24,7 +24,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-body table-responsive p-0">
+                <div class="card-body table-responsive p-0 overflow-auto" style="max-height: 500px;">
                     <table class="table table-hover text-nowrap">
                         <thead>
                             <tr>
@@ -62,7 +62,6 @@
                                             </form>
                                         </div>
                                     </td>
-
                                 </tr>
                             @endforeach
                         </tbody>

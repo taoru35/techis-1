@@ -73,3 +73,15 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+
+/* 以下オンラインショップページ */
+.card {
+    padding-bottom: 0 !important;  /* カードの下部のパディングを0に設定 */
+}
+.card-body {
+    padding-bottom: 0 !important;  /* カードボディの下部のパディングを0に設定 */
+}
+.card-footer {
+    padding-top: 0 !important;     /* カードフッターの上部のパディングを0に設定 */
+}
