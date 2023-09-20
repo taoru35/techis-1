@@ -21,7 +21,6 @@
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
                 <a class="nav-link" href="{{ route('salon.homepage') }}">Home</a>
-
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Services</a>
@@ -30,14 +29,16 @@
                 <a class="nav-link" href="#">Stylists</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Testimonials</a>
+                <a class="nav-link" href="{{ route('shop.index') }}">Shop</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('cart.index') }}">Cart</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
             </li>
-
+            <!-- ログインの有無に応じて表示変更部分はそのまま -->
             @if(Auth::check())
-            <!-- ログインしている場合のドロップダウンメニュー部分 -->
             <li class="nav-item dropdown ml-4">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #f5f5f5; border-radius: 5px;">
                     {{ Auth::user()->name }}
@@ -47,7 +48,6 @@
                 </div>
             </li>
             @else
-            <!-- ログインしていない場合の新規登録リンク -->
             <li class="nav-item ml-4">
                 <a class="nav-link" href="{{ route('register') }}" style="background-color: #f5f5f5; border-radius: 5px;">新規登録</a>
             </li>
@@ -62,16 +62,11 @@
 </form>
 @endif
 
-
-
-
-
     <!-- Main Image -->
     <div class="main-image d-flex justify-content-center align-items-center text-white">
         <div class="overlay"></div>
         <h1>Welcome to Tech Salon</h1>
     </div>
-
 
 <!-- Services Section -->
 <div class="container mt-5">
@@ -87,16 +82,6 @@
     </div>
 </div>
 
-<!-- Testimonials -->
-<div class="container mt-5">
-    <h2 class="text-center mb-5">Our Happy Customers</h2>
-    <div class="testimonial">
-        <p>"Absolutely loved the service. Best haircut ever!"</p>
-        <p><strong>- Maria K.</strong></p>
-    </div>
-    <!-- Add more testimonials as needed -->
-</div>
-
  <!-- Footer -->
  <footer class="text-center">
     &copy; 2023 Tech Salon. All rights reserved.
@@ -108,15 +93,9 @@
     $(document).ready(function() {
         setTimeout(function() {
             $('.overlay').css('background-color', 'rgba(0, 0, 0, 0.4)');
-        }, 500); // 2秒後に実行
+        }, 500); // 0.5秒後に実行
     });
 </script>
 </body>
 
 </html>
-
-
-
-
-
-

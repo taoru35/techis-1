@@ -44,10 +44,26 @@ class User extends Authenticatable
     ];
 
     /**
-     * 顧客情報とのリレーションを定義
+     * Define a one-to-one relationship with the Customer model.
      */
     public function customer()
     {
         return $this->hasOne(Customer::class);
+    }
+
+    /**
+     * Define a one-to-many relationship with the Cart model.
+     */
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    /**
+     * Define a many-to-many relationship with the Item model using the Cart table.
+     */
+    public function items()
+    {
+        return $this->belongsToMany(Item::class, 'carts')->withPivot('quantity');
     }
 }

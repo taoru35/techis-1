@@ -35,4 +35,15 @@ class Item extends Model
      */
     protected $casts = [
     ];
+
+
+    /**
+     * Get the carts for the item.
+     */
+    public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+
 }

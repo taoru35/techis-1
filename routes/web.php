@@ -8,7 +8,9 @@ use App\Http\Controllers\ItemController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\ImageController;
-
+use App\Http\Controllers\ShopController;
+use App\Http\Controllers\CartController;
+use App\Http\Controllers\CheckoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -53,4 +55,17 @@ Route::post('/customers/store', [CustomerController::class, 'store'])->name('cus
 
 
 
+// ショップ関連
+Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add/{item}', [CartController::class, 'add'])->name('cart.add');
+Route::delete('/cart/remove/{item}', [CartController::class, 'remove'])->name('cart.remove');
+
+Route::delete('/cart/{item}', [CartController::class, 'remove'])->name('cart.remove');
+Route::post('/cart/increase/{item}', [CartController::class, 'increaseQuantity'])->name('cart.increaseQuantity');
+Route::post('/cart/decrease/{item}', [CartController::class, 'decreaseQuantity'])->name('cart.decreaseQuantity');
+
+
+Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');
