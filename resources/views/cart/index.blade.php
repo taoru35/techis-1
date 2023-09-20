@@ -1,7 +1,17 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ショッピングカート</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
 
-@section('content')
-<div class="container">
+<!-- Navbar -->
+@include('partials.navbar')
+
+<div class="container mt-5">
     <h2 class="my-4">ショッピングカート</h2>
 
     @if(!is_null($cartItems) && count($cartItems) > 0)
@@ -16,10 +26,14 @@
                 </tr>
             </thead>
             <tbody>
+                @php
+                $grandTotal = 0;
+                @endphp
                 @foreach($cartItems as $item)
                     @php
                         $taxExcludedPrice = $item->price;
                         $totalTaxExcluded = $taxExcludedPrice * (isset($item->pivot) ? $item->pivot->quantity : 0);
+                        $grandTotal += $totalTaxExcluded;
                     @endphp
                     <tr>
                         <td>{{ $item->name }}</td>
@@ -58,12 +72,22 @@
             </tbody>
         </table>
 
+        <div class="mt-4">
+            <h4>全商品の合計: <span style="color: red; font-weight: bold; background-color: #ffe5e5; padding: 3px;">{{ number_format($grandTotal * 1.10, 0) }}円</span> (税込)</h4>
+
+        </div>
+
+
         <div class="mt-3">
-            <a href="{{ route('checkout.index') }}" class="btn btn-primary">購入画面に進む</a>
+            <a href="{{ route('checkout.index') }}" class="btn btn-primary" style="background-color: #2491f0f8;">購入画面に進む</a>
         </div>
 
     @else
         <p>カートにアイテムがありません。</p>
     @endif
 </div>
-@endsection
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

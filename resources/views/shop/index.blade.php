@@ -1,24 +1,42 @@
-@php
-    use Illuminate\Support\Str;  // Strファサードを使用するための記述
-@endphp
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>オンラインショップ</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">  <!-- 必要に応じて追加 -->
 </head>
+
 <body>
 
+<!-- Navbar -->
+@include('partials.navbar')
+
 <div class="container mt-5">
+
+<!-- フィルタリング & 検索部分 -->
+<form action="{{ route('shop.index') }}" method="get" class="mb-4 d-flex align-items-center">
+    <div class="mr-3">
+        <select name="type" class="form-control">
+            <option value="">全てのタイプ</option>
+            @foreach($types as $type)
+                <option value="{{ $type }}" {{ request('type') == $type ? 'selected' : '' }}>{{ $type }}</option>
+            @endforeach
+        </select>
+    </div>
+    <div class="mr-3">
+        <input type="text" name="search" class="form-control" placeholder="商品名やキーワードで検索" value="{{ request('search') }}">
+    </div>
+    <button type="submit" class="btn btn-info">検索 & フィルタリング</button>
+</form>
+
     <div class="row">
         <div class="col-12">
             <div class="d-flex justify-content-between align-items-center mb-4">
                 <h1>オンライン商品一覧</h1>
-                <!-- ショッピングカートへのリンク（実装時に適切なリンクに変更） -->
-                <a href="/cart" class="btn btn-primary">カートを見る</a>
+                <a href="{{ route('cart.index') }}" class="btn btn-primary">カートを見る</a>
             </div>
 
             <div class="row">
@@ -30,11 +48,10 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">{{ $item->name }}</h5>
-                            <p class="card-text">{{ Str::limit($item->detail, 100, '...') }}</p>  {{-- 詳細の表示を100文字に制限 --}}
+                            <p class="card-text">{{ Str::limit($item->detail, 100, '...') }}</p>
                             <p class="card-text">¥{{ number_format($item->price) }}</p>
                         </div>
                         <div class="card-footer">
-                            <!-- カートに追加の機能を有効にする -->
                             <form action="{{ route('cart.add', $item) }}" method="post">
                                 @csrf
                                 <input type="submit" class="btn btn-success w-100" value="カートに追加">
@@ -44,10 +61,16 @@
                 </div>
                 @endforeach
             </div>
+
+            <!-- ページネーションリンクの追加 -->
+            <div class="mt-4 d-flex justify-content-center">
+                {{ $items->links() }}
+            </div>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

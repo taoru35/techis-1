@@ -29,15 +29,25 @@ Route::get('/salon', [SalonController::class, 'homepage'])->name('salon.homepage
 
 // 管理者とスタッフのみがアクセス可能なページ
 Route::middleware(['ensureRoleIsAdminOrStaff'])->group(function () {
+
+
+
     // ダッシュボードページ
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
-    // 商品関連ページ
+    // 商品管理ページ
     Route::prefix('items')->group(function () {
-        Route::get('/', [ItemController::class, 'index']);
-        Route::get('/add', [ItemController::class, 'add']);
-        Route::post('/add', [ItemController::class, 'add']);
+        Route::get('/', [ItemController::class, 'index'])->name('items.index');
+        Route::get('/add', [ItemController::class, 'add'])->name('items.addForm');
+        Route::post('/add', [ItemController::class, 'add'])->name('items.add');
+
+        Route::get('/edit/{id}', [ItemController::class, 'edit'])->name('items.edit');
+        Route::put('/edit/{id}', [ItemController::class, 'update'])->name('items.update');
+
+        Route::delete('/{id}', [ItemController::class, 'destroy'])->name('items.destroy');
+        // ->middleware(['auth']); // ミドルウェアを適用する場合はこれを使用
     });
+
 
     // ユーザー関連ページ
     Route::get('/users', [UserController::class, 'index'])->name('users.index');
@@ -58,6 +68,8 @@ Route::post('/customers/store', [CustomerController::class, 'store'])->name('cus
 // ショップ関連
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
 
+
+// カート
 Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
 Route::post('/cart/add/{item}', [CartController::class, 'add'])->name('cart.add');
 Route::delete('/cart/remove/{item}', [CartController::class, 'remove'])->name('cart.remove');
@@ -66,6 +78,6 @@ Route::delete('/cart/{item}', [CartController::class, 'remove'])->name('cart.rem
 Route::post('/cart/increase/{item}', [CartController::class, 'increaseQuantity'])->name('cart.increaseQuantity');
 Route::post('/cart/decrease/{item}', [CartController::class, 'decreaseQuantity'])->name('cart.decreaseQuantity');
 
-
+// 決済画面
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 Route::post('/checkout', [CheckoutController::class, 'store'])->name('checkout.store');

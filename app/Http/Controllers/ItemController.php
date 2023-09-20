@@ -73,4 +73,50 @@ private function storeImage($file)
 }
 
 
+public function edit($id)
+{
+    $item = Item::find($id);
+    return view('item.edit', compact('item'));
+}
+
+public function update(Request $request, $id)
+{
+    // バリデーション
+    $data = $request->validate([
+        'name' => 'required|string|max:255',
+        'type' => 'required|string|max:255',
+        'detail' => 'required|string|max:500',
+        'image' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+        'price' => 'required|numeric|min:0',
+    ]);
+
+    $item = Item::find($id);
+
+    // 画像がアップロードされた場合
+    if ($request->hasFile('image')) {
+        // 既存の画像を削除
+        Storage::disk('s3')->delete($item->image);
+
+        $filename = $this->storeImage($request->file('image'));
+        $data['image'] = $filename;  // S3のファイル名を保存
+    }
+
+    // 商品情報更新
+    $item->update($data);
+
+    return redirect('/items')->with('success', '商品情報を更新しました。');
+}
+
+public function destroy($id)
+{
+    $item = Item::findOrFail($id);
+
+    // S3から画像を削除する場合
+    Storage::disk('s3')->delete($item->image);
+
+    $item->delete();
+    return redirect('/items')->with('success', '商品が削除されました');
+}
+
+
 }

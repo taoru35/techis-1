@@ -34,20 +34,35 @@
                                 <th>詳細</th>
                                 <th>画像</th>
                                 <th>価格</th>
+                                <th>操作</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($items as $item)
                                 <tr>
                                     <td>{{ $item->id }}</td>
-                                    <td>{{ $item->name }}</td>
+                                    <td>{{ Str::limit($item->name, 40, '...') }}</td>
+
                                     <td>{{ $item->type }}</td>
-                                    <td>{{ Str::limit($item->detail, 40, '...') }}</td>  {{-- 詳細の表示を20文字に制限 --}}
+                                    <td>{{ Str::limit($item->detail, 40, '...') }}</td>
                                     <td>
-                                        {{-- S3のURLを使用して画像を表示 --}}
                                         <img src="{{ env('AWS_URL') . '/' . $item->image }}" alt="{{ $item->name }}" width="30">
                                     </td>
-                                    <td>{{ $item->price }}</td>  {{-- 価格を表示 --}}
+                                    <td>{{ $item->price }}</td>
+                                    <td>
+                                        <div class="btn-group">
+                                            {{-- 編集ボタン --}}
+                                            <a href="{{ route('items.edit', $item->id) }}" class="btn btn-warning btn-sm">編集</a>
+
+                                            {{-- 削除ボタン --}}
+                                            <form action="{{ route('items.destroy', $item->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');" style="display: inline;">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">削除</button>
+                                            </form>
+                                        </div>
+                                    </td>
+
                                 </tr>
                             @endforeach
                         </tbody>
