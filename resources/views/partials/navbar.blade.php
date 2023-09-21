@@ -17,13 +17,19 @@
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('shop.index') }}">Shop</a>
             </li>
+
+            <!-- 以下が修正部分です -->
+            @if(Auth::check())
             <li class="nav-item">
                 <a class="nav-link" href="{{ route('cart.index') }}">Cart</a>
             </li>
+            @endif
+            <!-- 修正部分ここまで -->
+
             <li class="nav-item">
                 <a class="nav-link" href="#">Contact</a>
             </li>
-            <!-- ログインの有無に応じて表示変更部分はそのまま -->
+
             @if(Auth::check())
             <li class="nav-item dropdown ml-4">
                 <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: #f5f5f5; border-radius: 5px;">
