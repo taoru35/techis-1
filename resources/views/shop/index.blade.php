@@ -44,21 +44,24 @@
                 @foreach ($items as $item)
                 <div class="col-md-3 mb-4">
                     <div class="card h-100">
-                        <div class="position-relative">
-                            <img src="{{ env('AWS_URL') . '/' . $item->image }}" alt="{{ $item->name }}" style="max-width: 150px; max-height: 150px; display: block; margin-left: auto; margin-right: auto;">
-                        </div>
+                        <img src="{{ env('AWS_URL') . '/' . $item->image }}" alt="{{ $item->name }}" class="card-img-top" style="max-width: 150px; max-height: 150px; display: block; margin-left: auto; margin-right: auto;">
+
                         <div class="card-body">
                             <h5 class="card-text">{{ Str::limit($item->name , 50, '...') }}</h5>
                             <p class="card-text">{{ Str::limit($item->detail, 50, '...') }}</p>
                             <p class="card-text">¥{{ number_format($item->price) }}</p>
                         </div>
                         <div class="card-footer">
-                            <!-- ... カート追加のフォーム ... -->
+                            <form action="{{ route('cart.add', $item) }}" method="post">
+                                @csrf
+                                <input type="submit" class="btn btn-success w-100" value="カートに追加">
+                            </form>
                         </div>
                     </div>
                 </div>
                 @endforeach
             </div>
+
 
             <!-- ページネーションリンクの追加 -->
             <div class="mt-4 d-flex justify-content-center">
