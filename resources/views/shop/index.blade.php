@@ -44,7 +44,7 @@
                 @foreach ($items as $item)
                 <div class="col-md-3 mb-4">
                     <div class="card h-100">
-                        <img src="{{ env('AWS_URL') . '/' . $item->image }}" alt="{{ $item->name }}" class="card-img-top" style="max-width: 150px; max-height: 150px; display: block; margin-left: auto; margin-right: auto;">
+                        <img src="{{ env('AWS_URL') . '/' . $item->image }}" alt="{{ $item->name }}" class="card-img-top" style="max-width: 150px; max-height: 150px; display: block; margin-left: auto; margin-right: auto; object-fit: contain; ">
 
                         <div class="card-body">
                             <h5 class="card-text">{{ Str::limit($item->name , 50, '...') }}</h5>
