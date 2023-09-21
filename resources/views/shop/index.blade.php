@@ -7,7 +7,11 @@
     <title>オンラインショップ</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet"><!-- 必要に応じて追加 -->
-
+    <style>
+        .clickable-card {
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
@@ -33,56 +37,68 @@
     <button type="submit" class="btn btn-info">検索 & フィルタリング</button>
 </form>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h1>オンライン商品一覧</h1>
-                <a href="{{ route('cart.index') }}" class="btn btn-primary">カートを見る</a>
-            </div>
+<div class="row">
+    <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1>オンライン商品一覧</h1>
+            <a href="{{ route('cart.index') }}" class="btn btn-primary">カートを見る</a>
+        </div>
 
-            <div class="row">
-                @foreach ($items as $item)
-                <div class="col-md-3 mb-4">
-                    <div class="card h-100">
-                        <img src="{{ env('AWS_URL') . '/' . $item->image }}" alt="{{ $item->name }}" class="card-img-top" style="max-width: 150px; max-height: 150px; display: block; margin-left: auto; margin-right: auto; object-fit: contain; ">
-
-                        <div class="card-body">
-                            <h5 class="card-text">{{ Str::limit($item->name , 50, '...') }}</h5>
-                            <p class="card-text">{{ Str::limit($item->detail, 50, '...') }}</p>
-                            <p class="card-text">¥{{ number_format($item->price) }}</p>
-                        </div>
-                        <div class="card-footer">
-                            <form action="{{ route('cart.add', $item) }}" method="post">
-                                @csrf
-                                <input type="submit" class="btn btn-success w-100" value="カートに追加">
-                            </form>
-                        </div>
+        <div class="row">
+            @foreach ($items as $item)
+            <div class="col-md-3 mb-4 clickable-card" data-href="{{ route('shop.show', $item) }}">
+                <div class="card h-100">
+                    <img src="{{ env('AWS_URL') . '/' . $item->image }}" alt="{{ $item->name }}" class="card-img-top" style="max-width: 150px; max-height: 150px; display: block; margin-left: auto; margin-right: auto; object-fit: contain;">
+                    <div class="card-body">
+                        <h5 class="card-text">{{ Str::limit($item->name , 50, '...') }}</h5>
+                        <p class="card-text">{{ Str::limit($item->detail, 50, '...') }}</p>
+                        <p class="card-text">¥{{ number_format($item->price) }}</p>
+                    </div>
+                    <div class="card-footer">
+                        <form action="{{ route('cart.add', $item) }}" method="post">
+                            @csrf
+                            <input type="submit" class="btn btn-success w-100" value="カートに追加">
+                        </form>
                     </div>
                 </div>
-                @endforeach
             </div>
-
-
-            <!-- ページネーションリンクの追加 -->
-            <div class="mt-4 d-flex justify-content-center">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination">
-                        <li class="page-item"><a class="page-link" href="{{ $items->previousPageUrl() }}">前へ</a></li>
-                        @for ($i = 1; $i <= $items->lastPage(); $i++)
-                            <li class="page-item @if ($i == $items->currentPage()) active @endif">
-                                <a class="page-link" href="{{ $items->url($i) }}">{{ $i }}</a>
-                            </li>
-                        @endfor
-                        <li class="page-item"><a class="page-link" href="{{ $items->nextPageUrl() }}">次へ</a></li>
-                    </ul>
-                </nav>
-            </div>
-
+            @endforeach
         </div>
+
+        <!-- ページネーションリンクの追加 -->
+        <div class="mt-4 d-flex justify-content-center">
+            <nav aria-label="Page navigation">
+                <ul class="pagination">
+                    <li class="page-item"><a class="page-link" href="{{ $items->previousPageUrl() }}">前へ</a></li>
+                    @for ($i = 1; $i <= $items->lastPage(); $i++)
+                        <li class="page-item @if ($i == $items->currentPage()) active @endif">
+                            <a class="page-link" href="{{ $items->url($i) }}">{{ $i }}</a>
+                        </li>
+                    @endfor
+                    <li class="page-item"><a class="page-link" href="{{ $items->nextPageUrl() }}">次へ</a></li>
+                </ul>
+            </nav>
+        </div>
+
     </div>
+</div>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- 追加するJavaScript -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const cards = document.querySelectorAll('.clickable-card');
+        cards.forEach(function(card) {
+            card.addEventListener('click', function(e) {
+                if (!e.target.closest('form') && !e.target.closest('button')) {
+                    window.location.href = card.getAttribute('data-href');
+                }
+            });
+        });
+    });
+</script>
 </body>
 </html>

@@ -67,6 +67,7 @@ Route::post('/customers/store', [CustomerController::class, 'store'])->name('cus
 
 // ショップ関連
 Route::get('/shop', [ShopController::class, 'index'])->name('shop.index');
+Route::get('shop/{item}', [ShopController::class, 'show'])->name('shop.show');
 
 
 // カート

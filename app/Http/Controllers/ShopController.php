@@ -32,5 +32,11 @@ class ShopController extends Controller
         return view('shop.index', compact('items', 'types', 'selectedType'));
     }
 
+    public function show(Item $item)
+    {
+        return view('shop.show', compact('item'));
+    }
+
+
 
 }
