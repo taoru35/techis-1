@@ -52,7 +52,7 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-text">{{ Str::limit($item->name , 50, '...') }}</h5>
-                            {{-- <p class="card-text">{{ Str::limit($item->name , 50, '...') }}</p> --}}
+                          
                             <p class="card-text">{{ Str::limit($item->detail, 50, '...') }}</p>
                             <p class="card-text">¥{{ number_format($item->price) }}</p>
                         </div>
