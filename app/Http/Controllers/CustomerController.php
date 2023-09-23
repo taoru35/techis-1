@@ -60,6 +60,11 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->with('success', 'カスタマーを登録しました。');
     }
 
+    public function destroy(Customer $customer)
+    {
+        $customer->delete();
+        return redirect()->route('customers.index')->with('success', 'カスタマーが削除されました');
+    }
 
 
 

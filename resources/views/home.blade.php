@@ -37,7 +37,7 @@
         <div class="card-body">
             {{-- 以下商品管理通知 --}}
             @foreach($productNotifications as $notification)
-            <p>{{ $notification->title }}: {{ $notification->content }}</p>
+            <p>・ {{ $notification->title }}: {{ $notification->content }}</p>
             @endforeach
 
         </div>
@@ -50,26 +50,25 @@
         <div class="card-body">
             {{-- ユーザ管理通知 --}}
             @foreach($userNotifications as $notification)
-            <p>{{ $notification->title }}: {{ $notification->content }}</p>
+            <p>・ {{ $notification->title }}: {{ $notification->content }}</p>
             @endforeach
 
         </div>
     </div>
-
-    <!-- リアルタイムの通知やアラート -->
-    <div class="alert alert-danger" role="alert">
-        重要な通知やアラートをこちらに表示します。
-        @foreach($importantNotifications as $notification)
-      
-         <p>{{ $notification->title }}: {{ $notification->content }}</p>
+    <div class="card bg-danger">
+        <div class="card-header">
+            <h3 class="card-title text-white">重要な通知やアラートをこちらに表示します</h3>
         </div>
-        @endforeach
 
+            <!-- リアルタイムの通知やアラート -->
+            @foreach($importantNotifications as $notification)
 
+                    <p class="text-white">・ {{ $notification->title }}: {{ $notification->content }}</p>
 
-
-
+            @endforeach
+      
     </div>
+
 @stop
 
 @section('css')

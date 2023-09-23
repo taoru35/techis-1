@@ -23,7 +23,7 @@
                     <div class="card-tools">
                         <div class="input-group input-group-sm">
                             <div class="input-group-append">
-                               
+
                                 <a href="{{ route('customers.create') }}" class="btn btn-default">カスタマー追加</a>
 
                             </div>
@@ -42,13 +42,22 @@
                         </thead>
                         <tbody>
                             @foreach ($customers as $customer)
-                                <tr>
-                                    <td>{{ $customer->id }}</td>
-                                    <td>{{ $customer->full_name }}</td>
-                                    <td>{{ $customer->address }}</td>
-                                    <td>{{ $customer->phone_number }}</td>
-                                </tr>
-                            @endforeach
+                            <tr>
+                                <td>{{ $customer->id }}</td>
+                                <td>{{ $customer->full_name }}</td>
+                                <td>{{ $customer->address }}</td>
+                                <td>{{ $customer->phone_number }}</td>
+                                <td>
+                                    <!-- 削除ボタン -->
+                                    <form action="{{ route('customers.destroy', $customer->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');" style="display: inline;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">削除</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+
                         </tbody>
                     </table>
                 </div>

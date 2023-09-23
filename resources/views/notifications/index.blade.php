@@ -34,7 +34,7 @@
                         <th>タイトル</th>
                         <th>内容</th>
                         <th>投稿日時</th>
-                        <!-- 必要であれば、編集や削除のボタンも追加できます -->
+                        <th>操作</th> <!-- 編集・削除のボタン用の列を追加 -->
                     </tr>
                 </thead>
                 <tbody>
@@ -45,6 +45,19 @@
                         <td>{{ $notification->title }}</td>
                         <td>{{ $notification->content }}</td>
                         <td>{{ $notification->created_at }}</td>
+                        <td>
+                            <div class="btn-group">
+                                {{-- 編集ボタン --}}
+                                <a href="{{ route('notifications.edit', $notification->id) }}" class="btn btn-warning btn-sm">編集</a>
+
+                                {{-- 削除ボタン --}}
+                                <form action="{{ route('notifications.destroy', $notification->id) }}" method="POST" onsubmit="return confirm('本当に削除しますか？');" style="display: inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-danger btn-sm">削除</button>
+                                </form>
+                            </div>
+                        </td>
                     </tr>
                     @endforeach
                 </tbody>

@@ -15,20 +15,20 @@
             <form action="{{ route('notifications.store') }}" method="post">
                 @csrf
                 <div class="form-group">
-                    <label for="type">通知タイプ</label>
-                    <select name="type" id="type" class="form-control">
+                    <label for="type">通知タイプ <span class="text-danger">*</span></label>
+                    <select name="type" id="type" class="form-control" required>
                         <option value="product_management">商品管理</option>
                         <option value="user_management">ユーザー管理</option>
                         <option value="important_notice">その他の重要な通知</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="title">タイトル</label>
-                    <input type="text" name="title" id="title" class="form-control" required>
+                    <label for="title">タイトル <span class="text-danger">*</span> (最大30文字)</label>
+                    <input type="text" name="title" id="title" class="form-control" maxlength="30" required>
                 </div>
                 <div class="form-group">
-                    <label for="content">内容</label>
-                    <textarea name="content" id="content" class="form-control" rows="5" required></textarea>
+                    <label for="content">内容 <span class="text-danger">*</span> (最大255文字)</label>
+                    <textarea name="content" id="content" class="form-control" rows="5" maxlength="255" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">投稿</button>
             </form>

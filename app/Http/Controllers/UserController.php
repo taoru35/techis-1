@@ -52,4 +52,12 @@ class UserController extends Controller
 
         return redirect()->route('users.index')->with('success', 'ユーザーが正常に作成されました。');
     }
+    public function destroy(User $user)
+    {
+        $user->delete();
+
+        return redirect()->route('users.index')->with('success', 'ユーザーが削除されました');
+    }
+
+
 }
