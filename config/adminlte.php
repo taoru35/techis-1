@@ -247,6 +247,11 @@ return [
             'icon' => 'fas fa-gamepad',
         ],
 
+        [
+            'text' => '通知一覧',
+            'url'  => 'notifications',
+            'icon' => 'fas fa-bell', // 通知のアイコンとしてベルのアイコンを使用しています。必要に応じて別のアイコンを選択してください。
+        ],
 
 
 

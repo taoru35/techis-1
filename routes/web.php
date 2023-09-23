@@ -11,6 +11,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\NotificationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,6 +64,14 @@ Route::get('/customers/create', [CustomerController::class, 'create'])->name('cu
 
 Route::post('/customers/store', [CustomerController::class, 'store'])->name('customers.store');
 
+// 通知関連ページ
+Route::prefix('notifications')->middleware(['ensureRoleIsAdminOrStaff'])->group(function () {
+    Route::get('/', [NotificationController::class, 'index'])->name('notifications.index'); // 通知の一覧
+    Route::get('/create', [NotificationController::class, 'create'])->name('notifications.create'); // 通知の作成ページ
+    Route::post('/store', [NotificationController::class, 'store'])->name('notifications.store'); // 通知の保存
+
+    // 必要に応じて、他のルート（例：edit、update、deleteなど）も追加できます。
+});
 
 
 // ショップ関連

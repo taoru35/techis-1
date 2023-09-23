@@ -35,8 +35,11 @@
             <h3 class="card-title">商品管理</h3>
         </div>
         <div class="card-body">
-            <p>(仮) 最新の商品や通知をこちらに表示します。</p>
-            <p>(仮) 在庫が少ない商品: アイテムA, アイテムB, アイテムC</p>
+            {{-- 以下商品管理通知 --}}
+            @foreach($productNotifications as $notification)
+            <p>{{ $notification->title }}: {{ $notification->content }}</p>
+            @endforeach
+
         </div>
     </div>
 
@@ -45,14 +48,27 @@
             <h3 class="card-title">ユーザー管理</h3>
         </div>
         <div class="card-body">
-            <p>(仮) ユーザー関連の情報や通知をこちらに表示します。</p>
-            <p>(仮) 過去24時間で新たに登録されたユーザー: 5人</p>
+            {{-- ユーザ管理通知 --}}
+            @foreach($userNotifications as $notification)
+            <p>{{ $notification->title }}: {{ $notification->content }}</p>
+            @endforeach
+
         </div>
     </div>
 
     <!-- リアルタイムの通知やアラート -->
     <div class="alert alert-danger" role="alert">
         重要な通知やアラートをこちらに表示します。
+        @foreach($importantNotifications as $notification)
+      
+         <p>{{ $notification->title }}: {{ $notification->content }}</p>
+        </div>
+        @endforeach
+
+
+
+
+
     </div>
 @stop
 

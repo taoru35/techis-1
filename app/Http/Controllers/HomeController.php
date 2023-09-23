@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Item;
+use App\Models\Notification;
 
 class HomeController extends Controller
 {
@@ -28,6 +29,11 @@ class HomeController extends Controller
         $userCount = User::where('role', 'user')->count();
         $itemCount = Item::count();
 
-        return view('home', compact('userCount', 'itemCount'));
+        // それぞれの通知タイプに関する通知を取得
+        $productNotifications = Notification::where('type', 'product_management')->latest()->take(5)->get();
+        $userNotifications = Notification::where('type', 'user_management')->latest()->take(5)->get();
+        $importantNotifications = Notification::where('type', 'important_notice')->latest()->take(5)->get();
+
+        return view('home', compact('userCount', 'itemCount', 'productNotifications', 'userNotifications', 'importantNotifications'));
     }
 }
