@@ -82,6 +82,18 @@
     </div>
 </div>
 
+<!-- Access Section -->
+<div class="container mt-5">
+    <h2 class="text-center mb-4">Access</h2>
+    <p class="text-center">Tech Salonの住所: 〒100-0001 東京都千代田区マサラタウン１－１ </p>
+    <div class="map-container">
+        <!-- ステップ1でコピーしたGoogleマップのiframeを以下にペースト -->
+        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d45331.90773104345!2d141.22852279846103!3d45.1696718973782!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sja!2sjp!4v1695477143449!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</div>
+
+
+
  <!-- Footer -->
  <footer class="text-center">
     &copy; 2023 Tech Salon. All rights reserved.
