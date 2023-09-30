@@ -55,27 +55,36 @@
         <div class="mt-4">
             <h4>全商品の合計: <span style="color: red; font-weight: bold; background-color: #ffe5e5; padding: 3px;">{{ number_format($grandTotal * 1.10, 0) }}円</span> (税込)</h4>
 
-        </div>
-
-        <form action="{{ route('checkout.store') }}" method="post" id="payment-form" class="mt-3">
-            @csrf
-
-            <!-- クレジットカード情報の入力フォーム -->
-            <div class="form-group">
-                <label for="card-element">
-                    クレジットカード情報
-                </label>
-                <div id="card-element"></div>
-                <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+            <div class="mt-4">
+                <h4>全商品の合計: <span style="color: red; font-weight: bold; background-color: #ffe5e5; padding: 3px;">{{ number_format($grandTotal * 1.10, 0) }}円</span> (税込)</h4>
             </div>
 
-            <button type="submit" class="btn btn-primary" style="background-color: #2491f0f8;">購入する</button>
-        </form>
+            <div class="card bg-light mt-4 p-4">
+                <h4 class="mb-3">お支払い情報</h4>
 
-    @else
-        <p>カートにアイテムがありません。</p>
-    @endif
-</div>
+                <form action="{{ route('checkout.store') }}" method="post" id="payment-form">
+                    @csrf
+
+                    <!-- クレジットカード情報の入力フォーム -->
+                    <div class="form-group">
+                        <label for="card-element" class="font-weight-bold">
+                            クレジットカード情報
+                        </label>
+                        <div class="py-3 px-2 border rounded" style="background-color: #f9f9f9;">
+                            <div id="card-element"></div>
+                        </div>
+                        <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">購入する</button>
+                </form>
+            </div>
+
+        @else
+            <p>カートにアイテムがありません。</p>
+        @endif
+    </div>
+
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
