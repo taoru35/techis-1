@@ -16,7 +16,46 @@
     <h2 class="my-4">購入商品確認画面</h2>
 
     @if(!is_null($cartItems) && count($cartItems) > 0)
-        <!-- ... 既存のカート表示コード ... -->
+        <h4 class="mb-3">カートの中身</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>アイテム名</th>
+                    <th>価格(税抜き)</th>
+                    <th>数量</th>
+                    <th>合計(税抜き)</th>
+                </tr>
+            </thead>
+            <tbody>
+                @php
+                $grandTotal = 0;
+                @endphp
+                @foreach($cartItems as $item)
+                    @php
+                        $taxExcludedPrice = $item->price;
+                        $totalTaxExcluded = $taxExcludedPrice * (isset($item->pivot) ? $item->pivot->quantity : 0);
+                        $grandTotal += $totalTaxExcluded;
+                    @endphp
+                    <tr>
+                        <td>{{ $item->name }}</td>
+                        <td>
+                            {{ number_format($taxExcludedPrice * 1.10, 0) }}円
+                            ({{ number_format($taxExcludedPrice, 0) }}円)
+                        </td>
+                        <td>{{ isset($item->pivot) ? $item->pivot->quantity : '' }}</td>
+                        <td>
+                            {{ number_format($totalTaxExcluded * 1.10, 0) }}円
+                            ({{ number_format($totalTaxExcluded, 0) }}円)
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+
+        <div class="mt-4">
+            <h4>全商品の合計: <span style="color: red; font-weight: bold; background-color: #ffe5e5; padding: 3px;">{{ number_format($grandTotal * 1.10, 0) }}円</span> (税込)</h4>
+
+        </div>
 
         <form action="{{ route('checkout.store') }}" method="post" id="payment-form" class="mt-3">
             @csrf
