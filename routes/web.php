@@ -38,24 +38,29 @@ Route::middleware(['ensureRoleIsAdminOrStaff'])->group(function () {
         Route::delete('/{id}', [ItemController::class, 'destroy'])->name('items.destroy');
         // ->middleware(['auth']); // ミドルウェアを適用する場合はこれを使用
     });
-    // ユーザー関連ページ
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
-    Route::get('users/create', [UserController::class, 'create'])->name('users.create');
-    Route::post('users/store', [UserController::class, 'store'])->name('users.store');
+  // ユーザー関連ページ
+Route::get('/users', [UserController::class, 'index'])->name('users.index');
+Route::get('/users/create', [UserController::class, 'create'])->name('users.create');
+Route::post('/users/store', [UserController::class, 'store'])->name('users.store');
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 });
+
+
 // カスタマー関連ページ
 Route::get('/customers', [CustomerController::class, 'index'])->name('customers.index');
 Route::get('/customers/create', [CustomerController::class, 'create'])->name('customers.create');
-
 Route::post('/customers/store', [CustomerController::class, 'store'])->name('customers.store');
+Route::delete('/customers/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy');
+
 
 // 通知関連ページ
 Route::prefix('notifications')->middleware(['ensureRoleIsAdminOrStaff'])->group(function () {
-    Route::get('/', [NotificationController::class, 'index'])->name('notifications.index'); // 通知の一覧
-    Route::get('/create', [NotificationController::class, 'create'])->name('notifications.create'); // 通知の作成ページ
-    Route::post('/store', [NotificationController::class, 'store'])->name('notifications.store'); // 通知の保存
-
-    // 必要に応じて、他のルート（例：edit、update、deleteなど）も追加できます。
+    Route::get('/', [NotificationController::class, 'index'])->name('notifications.index');
+    Route::get('/create', [NotificationController::class, 'create'])->name('notifications.create');
+    Route::post('/store', [NotificationController::class, 'store'])->name('notifications.store');
+    Route::get('/edit/{notification}', [NotificationController::class, 'edit'])->name('notifications.edit');
+    Route::put('/update/{notification}', [NotificationController::class, 'update'])->name('notifications.update');
+    Route::delete('/{notification}', [NotificationController::class, 'destroy'])->name('notifications.destroy');
 });
 
 
