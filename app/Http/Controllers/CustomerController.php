@@ -38,7 +38,8 @@ class CustomerController extends Controller
             'password' => 'required|min:8|confirmed',
             'full_name' => 'required',
             'address' => 'required',
-            'phone_number' => 'required'
+            'phone_number' => 'required|regex:/^\d{2,4}-\d{2,4}-\d{4}$/'
+
         ]);
 
         // ユーザーの保存
