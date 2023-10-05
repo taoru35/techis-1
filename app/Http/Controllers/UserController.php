@@ -29,8 +29,8 @@ class UserController extends Controller
             'password' => 'required|string|min:8|confirmed',
             'role' => 'required|in:admin,staff,user',
             'full_name' => 'required_if:role,user', // roleがuserの場合のみ必須
-            'address' => 'nullable', // 必須ではない場合
-            'phone_number' => 'nullable|digits_between:10,11'
+            'address' => 'required',
+            'phone_number' => 'required'
 
         ]);
 

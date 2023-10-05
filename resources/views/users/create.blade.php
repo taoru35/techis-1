@@ -48,16 +48,19 @@
         <!-- 顧客情報の入力部分 -->
         <div id="customerInfo" style="display: none;">
             <div class="form-group">
-                <label for="full_name">フルネーム:</label>
-                <input type="text" class="form-control" id="full_name" name="full_name" value="{{ old('full_name') }}">
+                <label for="full_name">フルネーム <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="full_name" name="full_name" required value="{{ old('full_name') }}">
+            </div>
+
+            <div class="form-group">
+                <label for="address">住所 <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="address" name="address" required value="{{ old('address') }}">
             </div>
             <div class="form-group">
-                <label for="address">住所:</label>
-                <input type="text" class="form-control" id="address" name="address" value="{{ old('address') }}">
-            </div>
-            <div class="form-group">
-                <label for="phone_number">電話番号:</label>
-                <input type="text" class="form-control" id="phone_number" name="phone_number" value="{{ old('phone_number') }}">
+                <label for="phone_number">電話番号 <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="phone_number" name="phone_number" required value="{{ old('phone_number') }}"
+                       placeholder="例: 090-1234-5678" pattern="^\d{2,4}-\d{2,4}-\d{3,4}$">
+                <small class="text-muted">半角数字とハイフンを使用してください (例: 03-1234-5678, 090-1234-5678)</small>
             </div>
         </div>
         <!-- 顧客情報の入力部分終わり -->
